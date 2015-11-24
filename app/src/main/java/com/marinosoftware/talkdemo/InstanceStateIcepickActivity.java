@@ -3,7 +3,6 @@ package com.marinosoftware.talkdemo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import icepick.Icepick;
-import icepick.Icepick.*;
 import icepick.State;
 
 public class InstanceStateIcepickActivity extends AppCompatActivity {
@@ -30,9 +28,14 @@ public class InstanceStateIcepickActivity extends AppCompatActivity {
     Button mButton;
 
 
-    String mFirstName = "not set";
-
-    String mSurname;
+    @State
+    String mFirstNameLabel;
+    @State
+    String mFirstNameValue;
+    @State
+    String mSurnameLabel;
+    @State
+    String mSurnameValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +57,23 @@ public class InstanceStateIcepickActivity extends AppCompatActivity {
         Icepick.saveInstanceState(this, outState);
     }
 
+
+
     //method that takes a long time to fetch data from a server or whatever
     private void fetchData() {
-        mFirstName = "Taylor";
-        mSurname = "Swift";
+        mFirstNameLabel = "First name:";
+        mFirstNameValue = "Taylor";
+        mSurnameLabel = "Surname:";
+        mSurnameValue = "Swift";
 
         initFields();
     }
 
     private void initFields() {
-        mEditText.setText(mFirstName);
-        mEditText2.setText(mSurname);
+        mTextView.setText(mFirstNameLabel);
+        mEditText.setText(mFirstNameValue);
+        mTextView2.setText(mSurnameLabel);
+        mEditText2.setText(mSurnameValue);
     }
 
 }

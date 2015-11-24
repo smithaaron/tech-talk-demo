@@ -1,7 +1,6 @@
 package com.marinosoftware.talkdemo;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
@@ -10,12 +9,13 @@ import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class InstanceStateActivity extends AppCompatActivity {
 
-    static final String STATE_FIRST_NAME = "fname";
-    static final String STATE_SURNAME = "sname";
+    static final String STATE_FIRST_NAME_LABEL = "fname_label";
+    static final String STATE_FIRST_NAME_VALUE = "fname_value";
+    static final String STATE_SURNAME_LABEL = "sname_label";
+    static final String STATE_SURNAME_VALUE = "sname_value";
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -30,8 +30,10 @@ public class InstanceStateActivity extends AppCompatActivity {
     @Bind(R.id.button)
     Button mButton;
 
-    String mFirstName;
-    String mSurname;
+    String mFirstNameLabel;
+    String mFirstNameValue;
+    String mSurnameLabel;
+    String mSurnameValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,10 @@ public class InstanceStateActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             fetchData();
         } else {
-            mFirstName = savedInstanceState.getString(STATE_FIRST_NAME);
-            mSurname = savedInstanceState.getString(STATE_SURNAME);
+            mFirstNameLabel = savedInstanceState.getString(STATE_FIRST_NAME_LABEL);
+            mFirstNameValue = savedInstanceState.getString(STATE_FIRST_NAME_VALUE);
+            mSurnameLabel = savedInstanceState.getString(STATE_SURNAME_LABEL);
+            mSurnameValue = savedInstanceState.getString(STATE_SURNAME_VALUE);
             initFields();
         }
     }
@@ -52,24 +56,31 @@ public class InstanceStateActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
 
         //Save downloaded data
-        outState.putString(STATE_FIRST_NAME, mFirstName);
-        outState.putString(STATE_SURNAME, mSurname);
+        outState.putString(STATE_FIRST_NAME_LABEL, mFirstNameLabel);
+        outState.putString(STATE_FIRST_NAME_VALUE, mFirstNameValue);
+        outState.putString(STATE_SURNAME_LABEL, mSurnameLabel);
+        outState.putString(STATE_SURNAME_VALUE, mSurnameValue);
 
         // Always call the superclass so it can save the view hierarchy state
         super.onSaveInstanceState(outState);
     }
 
 
+
     //method that takes a long time to fetch data from a server or whatever
     private void fetchData() {
-        mFirstName = "Taylor";
-        mSurname = "Swift";
+        mFirstNameLabel = "First name:";
+        mFirstNameValue = "Taylor";
+        mSurnameLabel = "Surname:";
+        mSurnameValue = "Swift";
 
         initFields();
     }
 
     private void initFields() {
-        mEditText.setText(mFirstName);
-        mEditText2.setText(mSurname);
+        mTextView.setText(mFirstNameLabel);
+        mEditText.setText(mFirstNameValue);
+        mTextView2.setText(mSurnameLabel);
+        mEditText2.setText(mSurnameValue);
     }
 }
